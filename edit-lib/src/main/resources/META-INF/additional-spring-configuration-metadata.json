@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "edit.enabled",
+      "type": "java.lang.String",
+      "description": "Description for edit.enabled."
+    },
+    {
+      "name": "edit.base-url",
+      "type": "java.lang.String",
+      "description": "Description for edit.base-url."
+    },
+    {
+      "name": "edit.cli-dir",
+      "type": "java.lang.String",
+      "description": "Description for edit.cli-dir."
+    }
+  ] }
