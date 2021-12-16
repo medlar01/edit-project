@@ -20,3 +20,4 @@ edit:
   enabled: true
   base-url: editjs
   cli-dir: /Users/admin/code-workspace/cli-dir
+act-modeler: true

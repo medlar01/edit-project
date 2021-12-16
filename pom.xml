@@ -11,6 +11,7 @@
     <modules>
         <module>web</module>
         <module>edit-lib</module>
+        <module>modaler</module>
     </modules>
 
     <properties>
