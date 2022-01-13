@@ -1,30 +1,32 @@
-package com.edit.web.bus;
+package com.edit.dddweb.application.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.edit.web.dao.UserMapper;
-import com.edit.web.po.UserPO;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.edit.dddweb.application.service.UserService;
+import com.edit.dddweb.infrastructure.dao.UserDao;
+import com.edit.dddweb.infrastructure.entity.User;
 import com.google.common.collect.ImmutableMap;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.util.Calendar;
 import java.util.List;
 
-@Service
-public class CommonBus {
-    private static final String SIGN = "@Q1W2S##1XZC";
-    private static final Logger log = LogManager.getLogger(CommonBus.class);
-    private UserMapper userMapper;
+/**
+ * (User)表服务实现类
+ *
+ * @author makejava
+ * @since 2022-01-11 02:47:25
+ */
+@Service("userService")
+public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserService {
 
-    /**
-     * 系统登录
-     */
+    private static final String SIGN = "@Q1W2S##1XZC";
+
+    @Override
     public String login(String user, String passwd) {
-        List<UserPO> list = userMapper.selectByMap(ImmutableMap.<String, Object>builder()
+        List<User> list = this.baseMapper.selectByMap(ImmutableMap.<String, Object>builder()
                 .put("user", user)
                 .build());
         if (list.size() == 0) {
@@ -32,7 +34,7 @@ public class CommonBus {
             return null;
         }
 
-        UserPO dbUser = list.get(0);
+        User dbUser = list.get(0);
         String hexPasswd = DigestUtils.md5DigestAsHex(passwd.getBytes());
         if (!dbUser.getPasswd().equals(hexPasswd)) {
             log.error("登录失败: 用户密码错误~");
@@ -48,9 +50,5 @@ public class CommonBus {
                 .withExpiresAt(instance.getTime())
                 .sign(Algorithm.HMAC256(SIGN));
     }
-
-    @Autowired
-    public void setUserMapper(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
 }
+
