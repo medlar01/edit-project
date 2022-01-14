@@ -1,12 +1,12 @@
 package com.edit.dddweb.interfaces.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.edit.dddweb.application.service.UserService;
 import com.edit.dddweb.infrastructure.entity.User;
 import com.edit.dddweb.interfaces.common.Result;
+import com.edit.dddweb.interfaces.dto.UserDTO;
 import org.springframework.web.bind.annotation.*;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
 import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.List;
@@ -35,14 +35,14 @@ public class UserController {
     /**
      * 分页查询所有数据
      *
-     * @param page 分页对象
+     * @param current 当前页
+     * @param size 数据量
      * @param user 查询实体
      * @return 所有数据
      */
     @GetMapping
-    public Result<List<User>> page(Page<User> page, User user) {
-        IPage<User> p = this.userService.page(page, new QueryWrapper<>(user));
-        return Result.page(p.getTotal(), p.getRecords());
+    public Result<List<UserDTO>> page(Long current, Long size, User user) {
+        return this.userService.findLimit(Page.of(current, size), user);
     }
 
     /**
@@ -52,8 +52,8 @@ public class UserController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    public Result<User> one(@PathVariable Serializable id) {
-        return Result.success(this.userService.getById(id));
+    public Result<UserDTO> one(@PathVariable Serializable id) {
+        return Result.success(this.userService.getUser(id));
     }
 
     /**
@@ -81,12 +81,12 @@ public class UserController {
     /**
      * 删除数据
      *
-     * @param idList 主键结合
+     * @param ids 主键结合
      * @return 删除结果
      */
     @DeleteMapping
-    public Result<String> delete(@RequestParam("idList") List<Long> idList) {
-        return this.userService.removeByIds(idList) ? Result.SUCCESS : Result.ERROR;
+    public Result<String> delete(@RequestParam("ids") List<Long> ids) {
+        return this.userService.removeByIds(ids) ? Result.SUCCESS : Result.ERROR;
     }
 }
 
