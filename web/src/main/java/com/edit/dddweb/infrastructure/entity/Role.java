@@ -1,18 +1,15 @@
 package com.edit.dddweb.infrastructure.entity;
 
 import java.util.Date;
-
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
  * (Role)实体类
  *
- * @author makejava
- * @since 2022-01-15 02:01:41
+ * @author bingco
+ * @since 2022-01-15 03:28:29
  */
 @Data
-@TableName("t_role")
 public class Role {
     /**
      * ID

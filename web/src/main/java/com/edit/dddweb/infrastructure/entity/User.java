@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * (User)实体类
  *
- * @author makejava
+ * @author bingco
  * @since 2022-01-13 19:28:27
  */
 @Data

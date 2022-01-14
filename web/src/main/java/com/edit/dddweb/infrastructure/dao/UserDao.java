@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * (User)表数据库访问层
  *
- * @author makejava
+ * @author bingco
  * @since 2022-01-11 01:55:37
  */
 @Mapper
