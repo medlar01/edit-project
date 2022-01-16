@@ -8,7 +8,7 @@
       "id" : "process_id",
       "type" : "String",
       "title" : "流程唯一标识",
-      "value" : "未定义",
+      "value" : "",
       "description" : "流程定义唯一的标识",
       "popular" : true
     } ]

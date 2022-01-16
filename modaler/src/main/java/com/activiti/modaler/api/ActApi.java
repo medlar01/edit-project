@@ -25,6 +25,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -41,7 +42,7 @@ public class ActApi {
             editorNode.put("id", "canvas");
             editorNode.put("resourceId", "canvas");
             ObjectNode stencilSetNode = objectMapper.createObjectNode();
-            stencilSetNode.put("namespace", "https://b3mn.org/stencilset/bpmn2.0#");
+            stencilSetNode.put("namespace", "http://b3mn.org/stencilset/bpmn2.0#");
             editorNode.set("stencilset", stencilSetNode);
             Model modelData = repositoryService.newModel();
             ObjectNode modelObjectNode = objectMapper.createObjectNode();

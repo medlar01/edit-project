@@ -20,7 +20,7 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 edit:
-  enabled: true
+  enabled: false
   base-url: editjs
   cli-dir: /Users/admin/code-workspace/cli-dir
 act-modeler: true
