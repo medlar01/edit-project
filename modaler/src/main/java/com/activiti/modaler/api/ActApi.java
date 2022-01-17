@@ -36,7 +36,7 @@ public class ActApi {
     private ObjectMapper objectMapper;
 
     @GetMapping("modeler/create")
-    public void create(HttpServletRequest request, HttpServletResponse response) {
+    public void create(String name, String desc, HttpServletRequest request, HttpServletResponse response) {
         try {
             ObjectNode editorNode = objectMapper.createObjectNode();
             editorNode.put("id", "canvas");
@@ -46,10 +46,9 @@ public class ActApi {
             editorNode.set("stencilset", stencilSetNode);
             Model modelData = repositoryService.newModel();
             ObjectNode modelObjectNode = objectMapper.createObjectNode();
-            modelObjectNode.put(ModelDataJsonConstants.MODEL_NAME, "新建流程");
+            modelObjectNode.put(ModelDataJsonConstants.MODEL_NAME, name);
             modelObjectNode.put(ModelDataJsonConstants.MODEL_REVISION, 1);
-            String description = "请输入流程描述信息~";
-            modelObjectNode.put(ModelDataJsonConstants.MODEL_DESCRIPTION, description);
+            modelObjectNode.put(ModelDataJsonConstants.MODEL_DESCRIPTION, desc);
             modelData.setMetaInfo(modelObjectNode.toString());
             repositoryService.saveModel(modelData);
             repositoryService.addModelEditorSource(modelData.getId(), editorNode.toString().getBytes(StandardCharsets.UTF_8));
@@ -95,7 +94,8 @@ public class ActApi {
             this.repositoryService.saveModel(model);
             byte[] jsonXml = (Objects.requireNonNull(values.getFirst("json_xml"))).getBytes(StandardCharsets.UTF_8);
             this.repositoryService.addModelEditorSource(model.getId(), jsonXml);
-            TranscoderInput input = new TranscoderInput(new ByteArrayInputStream(jsonXml));
+            byte[] svgXml = (Objects.requireNonNull(values.getFirst("svg_xml"))).getBytes(StandardCharsets.UTF_8);
+            TranscoderInput input = new TranscoderInput(new ByteArrayInputStream(svgXml));
             PNGTranscoder transcoder = new PNGTranscoder();
             ByteArrayOutputStream outStream = new ByteArrayOutputStream();
             TranscoderOutput output = new TranscoderOutput(outStream);
