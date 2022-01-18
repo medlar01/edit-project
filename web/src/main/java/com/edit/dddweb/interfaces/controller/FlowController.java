@@ -23,8 +23,8 @@ public class FlowController {
      * @return 所有数据
      */
     @GetMapping("model")
-    public Result<List<Model>> modelLimit(Integer current, Integer size) {
-        return this.flowService.modelLimit(current, size);
+    public Result<List<Model>> modelLimit(Integer current, Integer size, @RequestParam(required = false) String name) {
+        return this.flowService.modelLimit(current, size, name);
     }
 
     /**
