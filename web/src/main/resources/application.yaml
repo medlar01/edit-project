@@ -27,3 +27,4 @@ act-modeler: true
 logging:
   level:
     com.edit.dddweb: debug
+    org.activiti.engine.impl.persistence.entity: debug

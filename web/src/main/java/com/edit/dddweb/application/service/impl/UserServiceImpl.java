@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.edit.dddweb.application.assembler.UserConverter;
 import com.edit.dddweb.application.service.UserService;
-import com.edit.dddweb.infrastructure.dao.UserDao;
+import com.edit.dddweb.infrastructure.dao.UserDAO;
 import com.edit.dddweb.infrastructure.entity.User;
 import com.edit.dddweb.interfaces.common.Result;
 import com.edit.dddweb.interfaces.dto.UserDTO;
@@ -26,7 +26,7 @@ import java.util.List;
  * @since 2022-01-11 02:47:25
  */
 @Service("userService")
-public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserDAO, User> implements UserService {
 
     private static final String SIGN = "@Q1W2S##1XZC";
 
