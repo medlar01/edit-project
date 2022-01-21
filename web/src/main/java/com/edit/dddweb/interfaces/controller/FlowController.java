@@ -62,22 +62,43 @@ public class FlowController {
         return this.flowService.deployLimit(current, size, name);
     }
 
+    /**
+     * 删除流程定义
+     * @param ids 流程Id
+     * @return 执行结果
+     */
     @DeleteMapping("deploy")
     public Result<String> removeDeployByIds(@RequestParam List<String> ids) {
         return this.flowService.removeDeployByIds(ids) ? Result.SUCCESS : Result.ERROR;
     }
 
+    /**
+     * 创建流程实例
+     * @param id 流程定义Id
+     * @return 执行结果
+     */
     @GetMapping("proc-inst/{id}")
     public Result<String> createProcInstance(@PathVariable String id) {
         String taskId = this.flowService.createProcInstance(id);
         return taskId != null ? Result.success(taskId) : Result.ERROR;
     }
 
+    /**
+     * 分页查询我的流程实例
+     * @param current 当前页
+     * @param size 数据量
+     * @return 执行结果
+     */
     @GetMapping("proc-inst/self")
     public Result<List<ProcessInstance>> procInstanceSelf(Integer current, Integer size) {
         return this.flowService.procInstanceSelf(current, size);
     }
 
+    /**
+     * 删除流程实例
+     * @param ids 流程实例Id
+     * @return 执行结果
+     */
     @DeleteMapping("proc-inst")
     public Result<String> removeProcInstanceByIds(@RequestParam List<String> ids) {
         return this.flowService.removeProcInstanceByIds(ids) ? Result.SUCCESS : Result.ERROR;
