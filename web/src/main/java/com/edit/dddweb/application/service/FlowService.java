@@ -3,7 +3,7 @@ package com.edit.dddweb.application.service;
 import com.edit.dddweb.interfaces.common.Result;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
-import org.activiti.engine.task.Task;
+import org.activiti.engine.runtime.ProcessInstance;
 
 import java.util.List;
 
@@ -47,14 +47,14 @@ public interface FlowService {
      * @param id 刘晨定义Id
      * @return 申请结果
      */
-    String createTask(String id);
+    String createProcInstance(String id);
 
-    Result<List<Task>> mineTask(Integer current, Integer size);
+    Result<List<ProcessInstance>> procInstanceSelf(Integer current, Integer size);
 
     /**
      * 删除任务
      * @param ids 任务id
      * @return 删除结果
      */
-    boolean removeTaskByIds(List<String> ids);
+    boolean removeProcInstanceByIds(List<String> ids);
 }

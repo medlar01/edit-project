@@ -8,11 +8,9 @@ import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.*;
 import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.task.Task;
-import org.activiti.engine.task.TaskQuery;
+import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -99,7 +97,7 @@ public class FlowServiceImpl implements FlowService {
     }
 
     @Override
-    public String createTask(String id) {
+    public String createProcInstance(String id) {
         ProcessDefinition processDefinition = engine.getRepositoryService()
                 .createProcessDefinitionQuery()
                 .deploymentId(id)
@@ -111,23 +109,20 @@ public class FlowServiceImpl implements FlowService {
     }
 
     @Override
-    public Result<List<Task>> mineTask(Integer current, Integer size) {
-        TaskQuery query = engine.getTaskService()
-                .createTaskQuery()
-                .orderByTaskCreateTime()
-                .desc();
+    public Result<List<ProcessInstance>> procInstanceSelf(Integer current, Integer size) {
+        ProcessInstanceQuery query = engine.getRuntimeService()
+                .createProcessInstanceQuery();
         long count = query.count();
-        List<Task> list = query.listPage(Math.max(0, (current - 1) * size), size);
+        List<ProcessInstance> list = query.listPage(Math.max(0, (current - 1) * size), size);
         return Result.page(count, list);
     }
 
     @Override
-    public boolean removeTaskByIds(List<String> ids) {
+    public boolean removeProcInstanceByIds(List<String> ids) {
         if (ids == null || ids.size() == 0) return true;
-        TaskService taskService = engine.getTaskService();
+        RuntimeService runtimeService = engine.getRuntimeService();
         for (String id : ids) {
-            taskService.complete(id);
-            taskService.deleteTask(id, true);
+            runtimeService.deleteProcessInstance(id, null);
         }
         return true;
     }

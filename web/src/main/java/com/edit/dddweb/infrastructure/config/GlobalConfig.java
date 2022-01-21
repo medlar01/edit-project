@@ -8,9 +8,9 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
@@ -84,13 +84,16 @@ public class GlobalConfig implements InitializingBean {
             g.writeStringField("id", p.getId());
             g.writeStringField("name", p.getName());
             g.writeStringField("businessKey", p.getBusinessKey());
-            g.writeStringField("initiator", p.getInitiator());
             g.writeStringField("processDefinitionId", p.getProcessDefinitionId());
             g.writeStringField("parentId", p.getParentId());
             g.writeStringField("processDefinitionKey", p.getProcessDefinitionKey());
+            g.writeStringField("processDefinitionName", p.getProcessDefinitionName());
             g.writeNumberField("processDefinitionVersion", p.getProcessDefinitionVersion());
-            g.writeStringField("startDate", format.format(p.getStartDate()));
-            g.writeNumberField("status", p.getStatus().ordinal());
+            g.writeStringField("description", p.getDescription());
+            g.writeObjectField("variables", p.getProcessVariables());
+            g.writeStringField("startTime", Optional.ofNullable(p.getStartTime())
+                    .map(format::format)
+                    .orElse(null));
             g.writeEndObject();
         }
     }

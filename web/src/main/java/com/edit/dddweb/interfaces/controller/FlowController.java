@@ -4,7 +4,7 @@ import com.edit.dddweb.application.service.FlowService;
 import com.edit.dddweb.interfaces.common.Result;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
-import org.activiti.engine.task.Task;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -67,19 +67,19 @@ public class FlowController {
         return this.flowService.removeDeployByIds(ids) ? Result.SUCCESS : Result.ERROR;
     }
 
-    @GetMapping("task/{id}")
-    public Result<String> createTask(@PathVariable String id) {
-        String taskId = this.flowService.createTask(id);
+    @GetMapping("proc-inst/{id}")
+    public Result<String> createProcInstance(@PathVariable String id) {
+        String taskId = this.flowService.createProcInstance(id);
         return taskId != null ? Result.success(taskId) : Result.ERROR;
     }
 
-    @GetMapping("task/self")
-    public Result<List<Task>> myTask(Integer current, Integer size) {
-        return this.flowService.mineTask(current, size);
+    @GetMapping("proc-inst/self")
+    public Result<List<ProcessInstance>> procInstanceSelf(Integer current, Integer size) {
+        return this.flowService.procInstanceSelf(current, size);
     }
 
-    @DeleteMapping("task")
-    public Result<String> removeTaskByIds(@RequestParam List<String> ids) {
-        return this.flowService.removeTaskByIds(ids) ? Result.SUCCESS : Result.ERROR;
+    @DeleteMapping("proc-inst")
+    public Result<String> removeProcInstanceByIds(@RequestParam List<String> ids) {
+        return this.flowService.removeProcInstanceByIds(ids) ? Result.SUCCESS : Result.ERROR;
     }
 }
