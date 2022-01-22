@@ -14,7 +14,7 @@ import java.util.Map;
 @Mapper
 public interface CommonDAO {
     @SelectProvider(type = CommonProvider.class, method = "tables")
-    IPage<BasicSearchDTO> tableLimit(Page<Object> page, @Param("prams") Map<String, Serializable> prams);
+    IPage<Map<String, Serializable>> tableLimit(Page<Map<String, Object>> page, @Param("prams") Map<String, Serializable> prams);
 
 
     final class CommonProvider {
@@ -35,6 +35,6 @@ public interface CommonDAO {
 
     static boolean isNotBlank(Serializable val) {
         if (val == null) return false;
-        return (!(val instanceof String) || ((String) val).trim().isBlank());
+        return (!(val instanceof String) || !((String) val).trim().isBlank());
     }
 }

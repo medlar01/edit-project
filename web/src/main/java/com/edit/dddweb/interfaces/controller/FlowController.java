@@ -1,6 +1,7 @@
 package com.edit.dddweb.interfaces.controller;
 
 import com.edit.dddweb.application.service.FlowService;
+import com.edit.dddweb.infrastructure.entity.ProcessProperty;
 import com.edit.dddweb.interfaces.common.Result;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
@@ -70,6 +71,11 @@ public class FlowController {
     @DeleteMapping("deploy")
     public Result<String> removeDeployByIds(@RequestParam List<String> ids) {
         return this.flowService.removeDeployByIds(ids) ? Result.SUCCESS : Result.ERROR;
+    }
+
+    @GetMapping("proc-prop/{procId}")
+    public Result<ProcessProperty> procProperty(@PathVariable String procId) {
+        return Result.success(this.flowService.getProcProperty(procId));
     }
 
     /**

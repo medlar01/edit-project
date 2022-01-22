@@ -1,5 +1,6 @@
 package com.edit.dddweb.application.service;
 
+import com.edit.dddweb.infrastructure.entity.ProcessProperty;
 import com.edit.dddweb.interfaces.common.Result;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
@@ -49,6 +50,12 @@ public interface FlowService {
      */
     String createProcInstance(String id);
 
+    /**
+     * 分页查询我的流程实例
+     * @param current 当前页
+     * @param size 数据量
+     * @return 结果集
+     */
     Result<List<ProcessInstance>> procInstanceSelf(Integer current, Integer size);
 
     /**
@@ -57,4 +64,11 @@ public interface FlowService {
      * @return 删除结果
      */
     boolean removeProcInstanceByIds(List<String> ids);
+
+    /**
+     * 获取流程定义的自定义属性
+     * @param procId 流程定义Id
+     * @return 执行结果
+     */
+    ProcessProperty getProcProperty(String procId);
 }

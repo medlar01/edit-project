@@ -1,6 +1,9 @@
 package com.edit.dddweb.application.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.edit.dddweb.application.service.FlowService;
+import com.edit.dddweb.infrastructure.dao.ProcessPropertyDAO;
+import com.edit.dddweb.infrastructure.entity.ProcessProperty;
 import com.edit.dddweb.interfaces.common.Result;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.activiti.bpmn.model.BpmnModel;
@@ -23,6 +26,8 @@ public class FlowServiceImpl implements FlowService {
 
     @Resource
     private ProcessEngine engine;
+    @Resource
+    private ProcessPropertyDAO processPropertyDAO;
     @Resource
     private ObjectMapper objectMapper;
 
@@ -125,5 +130,11 @@ public class FlowServiceImpl implements FlowService {
             runtimeService.deleteProcessInstance(id, null);
         }
         return true;
+    }
+
+    @Override
+    public ProcessProperty getProcProperty(String procId) {
+        return processPropertyDAO.selectOne(new QueryWrapper<ProcessProperty>()
+                .eq("PROC_DEF_ID_", procId));
     }
 }
