@@ -137,4 +137,16 @@ public class FlowServiceImpl implements FlowService {
         return processPropertyDAO.selectOne(new QueryWrapper<ProcessProperty>()
                 .eq("PROC_DEF_ID_", procId));
     }
+
+    @Override
+    public boolean saveProcProperty(ProcessProperty property) {
+        int count = processPropertyDAO.insert(property);
+        return count > 0;
+    }
+
+    @Override
+    public boolean updateProcProperty(ProcessProperty property) {
+        int count = processPropertyDAO.updateById(property);
+        return count > 0;
+    }
 }

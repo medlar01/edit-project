@@ -68,7 +68,22 @@ public interface FlowService {
     /**
      * 获取流程定义的自定义属性
      * @param procId 流程定义Id
-     * @return 执行结果
+     * @return 获取对象
      */
     ProcessProperty getProcProperty(String procId);
+
+    /**
+     * 保存流程定义的自定义属性
+     * @param property 实体对象
+     * @return 执行结果
+     */
+    boolean saveProcProperty(ProcessProperty property);
+
+    /**
+     * 更新流程定义的自定义属性
+     * @param property 实体对象
+     * @return 执行结果
+     */
+    boolean updateProcProperty(ProcessProperty property);
+
 }

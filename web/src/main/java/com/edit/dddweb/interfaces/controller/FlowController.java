@@ -78,6 +78,16 @@ public class FlowController {
         return Result.success(this.flowService.getProcProperty(procId));
     }
 
+    @PostMapping("proc-prop")
+    public Result<ProcessProperty> insertProcProperty(@RequestBody ProcessProperty property) {
+        return this.flowService.saveProcProperty(property) ? Result.success(property) : Result.error("保存失败~");
+    }
+
+    @PutMapping("proc-prop")
+    public Result<String> updateProcProperty(ProcessProperty property) {
+        return this.flowService.updateProcProperty(property) ? Result.SUCCESS : Result.ERROR;
+    }
+
     /**
      * 创建流程实例
      * @param id 流程定义Id
